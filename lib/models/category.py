@@ -1,5 +1,5 @@
 from models.__init__ import CURSOR, CONN
-from models.item import Item
+#from models.item import Item
 
 class Category:
     all = {}
@@ -94,6 +94,7 @@ class Category:
         return cls.instance_from_db(row) if row else None
 
     def items(self):
+        from models.item import Item
         sql = """SELECT * FROM items WHERE category_id = ?"""
         CURSOR.execute(sql, (self.id,))
         rows = CURSOR.fetchall()
