@@ -1,3 +1,4 @@
+from models.__init__ import CONN, CURSOR
 from models.category import Category
 from models.item import Item
 
@@ -9,11 +10,11 @@ def seed_database():
     Item.create_table()
 
     # Create seed data
-    food = Category.create(name='Food')
-    clothing = Category.create(name='Clothing')
-    electronics = Category.create(name='Electronics')
-    home = Category.create(name='Home')
-    others = Category.create(name='Others')
+    food = Category.create('Food')
+    clothing = Category.create('Clothing')
+    electronics = Category.create('Electronics')
+    home = Category.create('Home')
+    others = Category.create('Others')
 
     Item.create("Apple", 100, 2000, food.id)
     Item.create("Bread", 200, 1000, food.id)
