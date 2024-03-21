@@ -1,8 +1,6 @@
 from models.category import Category
 from models.product import Product
 
-# from tabulate import tabulate
-
 
 def exit_program():
     print("Exiting program...")
@@ -22,10 +20,10 @@ def find_category_by_name():
     print(category) if category else print(f"Department {name} not found")
 
 
-def find_category_by_id():
-    id_ = input("Enter category id: ")
-    category = Category.find_by_id(id_)
-    print(category) if category else print(f"Department {id_} not found")
+# def find_category_by_id():
+#     id_ = input("Enter category id: ")
+#     category = Category.find_by_id(id_)
+#     print(category) if category else print(f"Department {id_} not found")
 
 
 def create_category():
@@ -37,28 +35,28 @@ def create_category():
         print("Error creating category: ", exc)
 
 
-def update_category():
-    id_ = input("Enter category id: ")
-    if category := Category.find_by_id(id_):
-        try:
-            name = input("Enter the category's new name: ")
-            category.name = name
-            category.update()
-            print(f"Successfully updated {category}")
+# def update_category():
+#     id_ = input("Enter category id: ")
+#     if category := Category.find_by_id(id_):
+#         try:
+#             name = input("Enter the category's new name: ")
+#             category.name = name
+#             category.update()
+#             print(f"Successfully updated {category}")
 
-        except Exception as exc:
-            print("Error updating category: ", exc)
-    else:
-        print(f"Category not found")
+#         except Exception as exc:
+#             print("Error updating category: ", exc)
+#     else:
+#         print(f"Category not found")
 
 
-def delete_category():
-    id_ = input("Enter category id: ")
-    if category := Category.find_by_id(id_):
-        category.delete()
-        print(f"Category {id_} successfully deleted")
-    else:
-        print(f"Department {id_} not found")
+# def delete_category():
+#     id_ = input("Enter category id: ")
+#     if category := Category.find_by_id(id_):
+#         category.delete()
+#         print(f"Category {id_} successfully deleted")
+#     else:
+#         print(f"Department {id_} not found")
 
 
 def list_products():
@@ -73,10 +71,10 @@ def find_product_by_name():
     print(product) if product else print(f"Product {name} not found")
 
 
-def find_product_by_id():
-    id_ = input("Enter product's id: ")
-    product = Product.find_by_id(id_)
-    print(product) if product else print(f"Product {id_} not found")
+# def find_product_by_id():
+#     id_ = input("Enter product's id: ")
+#     product = Product.find_by_id(id_)
+#     print(product) if product else print(f"Product {id_} not found")
 
 
 def create_product():
@@ -143,6 +141,8 @@ def calculate_total_category_cost():
 
     total_category_cost = Category.calculate_total_category_cost(category_id)
     if total_category_cost is not None:
-        print(f"Total cost of category {category_id} is:", f"Ksh. {total_category_cost}")
+        print(
+            f"Total cost of category {category_id} is:", f"Ksh. {total_category_cost}"
+        )
     else:
         print("No products found for the given category ID.")
