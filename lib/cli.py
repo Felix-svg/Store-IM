@@ -16,7 +16,7 @@ from helpers import (
 
 
 def main():
-    print("Welcome to StoreIM Store Manager. What do you want to do today?\n")
+    print("Welcome to StoreIM Store Manager.\n")
     while True:
         menu()
         choice = input("> ")
