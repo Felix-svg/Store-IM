@@ -1,5 +1,7 @@
 from models.__init__ import CURSOR, CONN
-#from models.item import Item
+
+# from models.product import Product
+
 
 class Category:
     all = {}
@@ -87,15 +89,16 @@ class Category:
         row = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_db(row) if row else None
 
-    @classmethod
-    def find_by_id(cls, id):
-        sql = """SELECT * FROM categories WHERE id = ?"""
-        row = CURSOR.execute(sql, (id,)).fetchone()
-        return cls.instance_from_db(row) if row else None
+    # @classmethod
+    # def find_by_id(cls, id):
+    #     sql = """SELECT * FROM categories WHERE id = ?"""
+    #     row = CURSOR.execute(sql, (id,)).fetchone()
+    #     return cls.instance_from_db(row) if row else None
 
-    def items(self):
-        from models.item import Item
-        sql = """SELECT * FROM items WHERE category_id = ?"""
+    def products(self):
+        from models.product import Product
+
+        sql = """SELECT * FROM products WHERE category_id = ?"""
         CURSOR.execute(sql, (self.id,))
         rows = CURSOR.fetchall()
-        return [Item.instance_from_db(row) for row in rows]
+        return [Product.instance_from_db(row) for row in rows]
