@@ -12,7 +12,7 @@ class Product:
         self.category_id = category_id
 
     def __repr__(self):
-        return f"<Product {self.id}: {self.name}, {self.price}, {self.quantity}, category ID: {self.category_id}>"
+        return f"<Product ID: {self.id}, Name: {self.name}, Price: {self.price}, Quantity: {self.quantity}, category ID: {self.category_id}>"
 
     @property
     def name(self):
@@ -124,14 +124,23 @@ class Product:
         rows = CURSOR.execute(sql).fetchall()
         return [cls.instance_from_db(row) for row in rows]
 
-    # @classmethod
-    # def find_by_id(cls, id):
-    #     sql = """SELECT * FROM products WHERE id=?"""
-    #     row = CURSOR.execute(sql, (id,)).fetchone()
-    #     return cls.instance_from_db(row) if row else None
+    @classmethod
+    def find_by_id(cls, id):
+        sql = """SELECT * FROM products WHERE id=?"""
+        row = CURSOR.execute(sql, (id,)).fetchone()
+        return cls.instance_from_db(row) if row else None
 
     @classmethod
     def find_by_name(cls, name):
         sql = """SELECT * FROM products WHERE name=?"""
         row = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_db(row) if row else None
+
+
+    @classmethod
+    def calculate_total_inventory_cost(cls):
+        total_cost = 0
+        products = cls.get_all()
+        for product in products:
+            total_cost += product.quantity * product.price
+        return total_cost

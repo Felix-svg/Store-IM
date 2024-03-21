@@ -1,53 +1,51 @@
 from helpers import (
     exit_program,
     list_categories,
-    find_category_by_name,
-    find_category_by_id,
     create_category,
     update_category,
     delete_category,
-    list_items,
-    find_item_by_name,
-    find_item_by_id,
-    create_item,
-    update_item,
-    delete_item,
-    list_category_items
+    list_products,
+    find_product_by_name,
+    create_product,
+    update_product,
+    delete_product,
+    list_category_products,
+    calculate_total_category_cost,
+    calculate_total_inventory_cost,
 )
 
 
 def main():
+    print("Welcome to StoreIM Store Manager. What do you want to do today?\n")
     while True:
         menu()
         choice = input("> ")
         if choice == "0":
             exit_program()
         elif choice == "1":
-            list_categories()
-        elif choice == "2":
-            find_category_by_name()
-        elif choice == "3":
-            find_category_by_id()
-        elif choice == "4":
             create_category()
-        elif choice == "5":
+        elif choice == "2":
+            list_categories()
+        elif choice == "3":
             update_category()
-        elif choice == "6":
+        elif choice == "4":
             delete_category()
+        elif choice == "5":
+            create_product()
+        elif choice == "6":
+            update_product()
         elif choice == "7":
-            list_items()
+            delete_product()
         elif choice == "8":
-            find_item_by_name()
+            list_products()
         elif choice == "9":
-            find_item_by_id()
+            find_product_by_name()
         elif choice == "10":
-            create_item()
+            list_category_products()
         elif choice == "11":
-            update_item()
+            calculate_total_category_cost()
         elif choice == "12":
-            delete_item()
-        elif choice == "13":
-            list_category_items()
+            calculate_total_inventory_cost()
         else:
             print("Invalid choice")
 
@@ -55,19 +53,18 @@ def main():
 def menu():
     print("Please select an option:")
     print("0. Exit the program")
-    print("1. List all categories")
-    print("2. Find category by name")
-    print("3. Find category by id")
-    print("4: Create category")
-    print("5: Update category")
-    print("6: Delete category")
-    print("7. List all items")
-    print("8. Find item by name")
-    print("9. Find item by id")
-    print("10: Create item")
-    print("11: Update item")
-    print("12: Delete item")
-    print("13: List all items in a category")
+    print("1: Add category")
+    print("2. List all categories")
+    print("3: Update a category")
+    print("4: Delete a category from the inventory")
+    print("5: Add a product to the inventory")
+    print("6: Update product")
+    print("7: Delete a product from the inventory")
+    print("8. List all products in the inventory")
+    print("9. Search product by name")
+    print("10: List all products in a category")
+    print("11: Get the total cost of a category")
+    print("12: Get the total cost of the inventory")
 
 
 if __name__ == "__main__":

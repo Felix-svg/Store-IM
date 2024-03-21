@@ -89,11 +89,11 @@ class Category:
         row = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_db(row) if row else None
 
-    # @classmethod
-    # def find_by_id(cls, id):
-    #     sql = """SELECT * FROM categories WHERE id = ?"""
-    #     row = CURSOR.execute(sql, (id,)).fetchone()
-    #     return cls.instance_from_db(row) if row else None
+    @classmethod
+    def find_by_id(cls, id):
+        sql = """SELECT * FROM categories WHERE id = ?"""
+        row = CURSOR.execute(sql, (id,)).fetchone()
+        return cls.instance_from_db(row) if row else None
 
     def products(self):
         from models.product import Product
@@ -102,3 +102,13 @@ class Category:
         CURSOR.execute(sql, (self.id,))
         rows = CURSOR.fetchall()
         return [Product.instance_from_db(row) for row in rows]
+    
+    @classmethod
+    def calculate_total_category_cost(cls, category_id):
+        total_cost = 0
+        sql = "SELECT p.quantity, p.price FROM products p JOIN product_categories pc ON p.id = pc.product_id WHERE pc.category_id = ?"
+        rows = CURSOR.execute(sql, (category_id,)).fetchall()
+        for row in rows:
+            quantity, price = row
+            total_cost += quantity * price
+        return total_cost
