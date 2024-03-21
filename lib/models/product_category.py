@@ -42,7 +42,6 @@ class ProductCategory:
         CURSOR.execute(sql, (product_id, category_id))
         CONN.commit()
 
-
     # @classmethod
     # def find_by_product_id(cls, product_id):
     #     sql = "SELECT * FROM product_categories WHERE product_id=?"

@@ -1,6 +1,7 @@
 from models.__init__ import CURSOR, CONN
 from models.category import Category
 
+
 class Product:
     all = {}
 
@@ -17,7 +18,7 @@ class Product:
     @property
     def name(self):
         return self._name
-    
+
     @name.setter
     def name(self, name):
         if isinstance(name, str) and len(name):
@@ -28,35 +29,37 @@ class Product:
     @property
     def quantity(self):
         return self._quantity
-    
+
     @quantity.setter
     def quantity(self, quantity):
         if isinstance(quantity, int) and quantity >= 0:
             self._quantity = quantity
         else:
             raise ValueError("Quantity must be a non-negative integer")
-    
+
     @property
     def price(self):
         return self._price
-    
+
     @price.setter
     def price(self, price):
         if isinstance(price, int) and price >= 0:
             self._price = price
         else:
             raise ValueError("Price must be a non-negative integer")
-    
+
     @property
     def category_id(self):
         return self._category_id
-    
+
     @category_id.setter
     def category_id(self, category_id):
         if isinstance(category_id, int) and Category.find_by_id(category_id):
             self._category_id = category_id
         else:
-            raise ValueError("category_id must reference a category in the database and be an integer")
+            raise ValueError(
+                "category_id must reference a category in the database and be an integer"
+            )
 
     @classmethod
     def create_table(cls):
@@ -87,7 +90,9 @@ class Product:
 
     def update(self):
         sql = """UPDATE products SET name=?, quantity=?, price=?, category_id=? WHERE id=?"""
-        CURSOR.execute(sql, (self.name, self.quantity, self.price, self.category_id, self.id))
+        CURSOR.execute(
+            sql, (self.name, self.quantity, self.price, self.category_id, self.id)
+        )
         CONN.commit()
 
     def delete(self):
@@ -135,7 +140,6 @@ class Product:
         sql = """SELECT * FROM products WHERE name=?"""
         row = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_db(row) if row else None
-
 
     @classmethod
     def calculate_total_inventory_cost(cls):

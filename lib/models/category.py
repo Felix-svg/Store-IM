@@ -1,7 +1,5 @@
 from models.__init__ import CURSOR, CONN
 
-# from models.product import Product
-
 
 class Category:
     all = {}
@@ -102,7 +100,7 @@ class Category:
         CURSOR.execute(sql, (self.id,))
         rows = CURSOR.fetchall()
         return [Product.instance_from_db(row) for row in rows]
-    
+
     @classmethod
     def calculate_total_category_cost(cls, category_id):
         total_cost = 0
