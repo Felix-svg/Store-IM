@@ -28,8 +28,6 @@ This project is a Command-Line Interface (CLI) application for managing inventor
 `python3 cli.py`
 - Follow the on-screen instructions to perform various operations such as adding, updating, deleting, or viewing items in the inventory.
 
-https://github.com/Felix-svg/Store-IM/blob/main/utils/Store-IM.webm
-
 ## Configuration
 - You can configure the database connection settings in the `__init__.py` file.
 
