@@ -24,7 +24,7 @@ This project is a Command-Line Interface (CLI) application for managing inventor
 `
 
 ## Usage
-- To start the CLI application, navigate to the `lib` directory, then run the following command:
+- To start the CLI application, enter the virtual environment by running `pipenv shell`, then navigate to the `lib` directory, and run the following command:
 `python3 cli.py`
 - Follow the on-screen instructions to perform various operations such as adding, updating, deleting, or viewing items in the inventory.
 
