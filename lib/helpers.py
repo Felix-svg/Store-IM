@@ -1,5 +1,6 @@
 from models.category import Category
 from models.product import Product
+from tabulate import tabulate
 
 
 def exit_program():
@@ -10,8 +11,8 @@ def exit_program():
 
 def list_categories():
     categories = Category.get_all()
-    for category in categories:
-        print(category)
+    category_list = [(category.id, category.name) for category in categories]
+    print(tabulate(category_list, headers=["Category ID", "Category Name"]))
 
 
 def find_category_by_name():
@@ -50,25 +51,50 @@ def create_category():
 #         print(f"Category not found")
 
 
-# def delete_category():
-#     id_ = input("Enter category id: ")
-#     if category := Category.find_by_id(id_):
-#         category.delete()
-#         print(f"Category {id_} successfully deleted")
-#     else:
-#         print(f"Department {id_} not found")
+def delete_category():
+    id_ = input("Enter category id: ")
+    if category := Category.find_by_id(id_):
+        category.delete()
+        print(f"Category {id_} successfully deleted")
+    else:
+        print(f"Department {id_} not found")
 
 
 def list_products():
     products = Product.get_all()
-    for product in products:
-        print(products)
+    product_list = [
+        (product.id, product.name, product.price, product.quantity, product.category_id)
+        for product in products
+    ]
+    print(
+        tabulate(
+            product_list,
+            headers=["Product ID", "Name", "Price", "Quantity", "Category ID"],
+        )
+    )
 
 
 def find_product_by_name():
     name = input("Enter product's Name: ")
     product = Product.find_by_name(name)
-    print(product) if product else print(f"Product {name} not found")
+    if product:
+        product_list = [
+            (
+                product.id,
+                product.name,
+                product.price,
+                product.quantity,
+                product.category_id,
+            )
+        ]
+        print(
+            tabulate(
+                product_list,
+                headers=["Product ID", "Name", "Price", "Quantity", "Category ID"],
+            )
+        )
+    else:
+        print(f"Product {name} not found")
 
 
 # def find_product_by_id():
@@ -121,15 +147,30 @@ def list_category_products():
     id_ = int(input("Enter the category id: "))
     if category := Category.find_by_id(id_):
         products = category.products()
-        for product in products:
-            print(product)
+        product_list = [
+            (
+                product.id,
+                product.name,
+                product.price,
+                product.quantity,
+                product.category_id,
+            )
+            for product in products
+        ]
+        print(
+            tabulate(
+                product_list,
+                headers=["Product ID", "Name", "Price", "Quantity", "Category ID"],
+            )
+        )
     else:
         print(f"Category {id_} not found")
 
 
 def calculate_total_inventory_cost():
     total_inventory_cost = Product.calculate_total_inventory_cost()
-    print("Total inventory cost:", f"Ksh. {total_inventory_cost}")
+    data = [["Total inventory cost:", f"Ksh. {total_inventory_cost}"]]
+    print(tabulate(data))
 
 
 def calculate_total_category_cost():
@@ -141,8 +182,9 @@ def calculate_total_category_cost():
 
     total_category_cost = Category.calculate_total_category_cost(category_id)
     if total_category_cost is not None:
-        print(
-            f"Total cost of category {category_id} is:", f"Ksh. {total_category_cost}"
-        )
+        data = [
+            [f"Total cost of category {category_id} is:", f"Ksh. {total_category_cost}"]
+        ]
+        print(tabulate(data))
     else:
         print("No products found for the given category ID.")
